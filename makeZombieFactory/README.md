@@ -58,3 +58,50 @@ Person[] public people;
 Person satoshi = Person(172, "Satoshi");
 // 이 사람을 배열에 추가한다:
 people.push(satoshi);
+```
+
+#### 8
+
+솔리디티에서 기본적으로 함수는 public으로 실행된다네,,
+즉, 누구나 혹은 다른컨트랙트가 public 함수를 호출할 수 있다는 소리지!
+이건 바람직하지 않다네,,,공격에 취약해지니까 private로 선언할 필요가 있어!
+
+```
+uint[] numbers;
+
+function _addToArray(uint _number) private {
+  numbers.push(_number);
+}
+```
+private 함수는 함수명 앞에 _를 붙이는게 관습
+
+#### 9
+
+반환값을 받으려면 아래와 같이 선언해야한다!
+
+```
+string greeting = "What's up dog";
+
+function sayHello() public returns (string) {
+  return greeting;
+}
+```
+
+위에서 살펴 본 함수 sayHello()는 솔리디티에서 상태를 변화시키지 않는다네. 즉, 어떤 값을 변경하거나 무언가를 쓰지 않지.
+이 경우에는 함수를 view 함수로 선언하지!
+
+```
+function sayHello() public view returns (string) {
+```
+
+솔리디티는 pure 함수도 가지고 있는데, 이는 함수가 앱에서 어떤 데이터도 접근하지 않는 것을 의미하지
+```
+function _multiply(uint a, uint b) private pure returns (uint) {
+  return a * b;
+}
+```
+이 함수는 앱에서 읽는 것도 하지 않고, 다만 반환값이 함수에 전달된 인자값에 따라서 달라지지. 그러니 이 경우에 함수를 pure로 선언하지
+
+
+
+
